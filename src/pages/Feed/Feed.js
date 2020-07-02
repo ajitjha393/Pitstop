@@ -114,15 +114,16 @@ class Feed extends Component {
 
 		console.log(postData.title, postData.content);
 
+		const formData = new FormData();
+		formData.append('title', postData.title);
+
+		formData.append('content', postData.content);
+
+		formData.append('image', postData.image);
+
 		fetch(url, {
 			method,
-			headers: {
-				'Content-Type': 'application/json',
-			},
-			body: JSON.stringify({
-				title: postData.title,
-				content: postData.content,
-			}),
+			body: formData,
 		})
 			.then(res => {
 				if (res.status !== 200 && res.status !== 201) {
@@ -146,7 +147,7 @@ class Feed extends Component {
 							p => p._id === prevState.editPost._id
 						);
 						updatedPosts[postIndex] = post;
-					} else if (prevState.posts.length < 2) {
+					} /*if (prevState.posts.length < 2)*/ else {
 						updatedPosts = prevState.posts.concat(post);
 					}
 					return {
