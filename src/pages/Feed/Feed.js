@@ -50,7 +50,7 @@ class Feed extends Component {
 			page--;
 			this.setState({ postPage: page });
 		}
-		fetch('http://localhost:8080/feed/posts')
+		fetch('http://localhost:8080/feed/posts?page=' + page)
 			.then(res => {
 				if (res.status !== 200) {
 					throw new Error('Failed to fetch posts.');
@@ -153,7 +153,9 @@ class Feed extends Component {
 							p => p._id === prevState.editPost._id
 						);
 						updatedPosts[postIndex] = post;
-					} /*if (prevState.posts.length < 2)*/ else {
+					} /*if (prevState.posts.length < 2)*/ else if (
+						prevState.posts.length < 2
+					) {
 						updatedPosts = prevState.posts.concat(post);
 					}
 					return {
