@@ -41,7 +41,7 @@ class Feed extends Component {
 
 		this.loadPosts();
 		// Path to server where socket connection is to be established
-		openSocket('http://localhost/8080');
+		openSocket('http://localhost:8080');
 	}
 
 	loadPosts = direction => {
