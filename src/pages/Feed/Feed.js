@@ -46,6 +46,8 @@ class Feed extends Component {
 		socket.on('posts', ({ action, post }) => {
 			if (action === 'create') {
 				this.addPost(post);
+			} else if (action === 'update') {
+				this.updatePost(post);
 			}
 		});
 	}
@@ -62,6 +64,19 @@ class Feed extends Component {
 			return {
 				posts: updatedPosts,
 				totalPosts: prevState.totalPosts + 1,
+			};
+		});
+	};
+
+	updatePost = post => {
+		this.setState(prevState => {
+			const updatedPosts = [...prevState.posts];
+			const updatedPostIndex = updatedPosts.findIndex(p => p._id === post._id);
+			if (updatedPostIndex > -1) {
+				updatedPosts[updatedPostIndex] = post;
+			}
+			return {
+				posts: updatedPosts,
 			};
 		});
 	};
@@ -184,27 +199,15 @@ class Feed extends Component {
 			})
 			.then(resData => {
 				console.log(resData);
-				const post = {
-					_id: resData.post._id,
-					title: resData.post.title,
-					content: resData.post.content,
-					creator: resData.post.creator,
-					createdAt: resData.post.createdAt,
-				};
+				// const post = {
+				// 	_id: resData.post._id,
+				// 	title: resData.post.title,
+				// 	content: resData.post.content,
+				// 	creator: resData.post.creator,
+				// 	createdAt: resData.post.createdAt,
+				// };
 				this.setState(prevState => {
-					let updatedPosts = [...prevState.posts];
-					if (prevState.editPost) {
-						const postIndex = prevState.posts.findIndex(
-							p => p._id === prevState.editPost._id
-						);
-						updatedPosts[postIndex] = post;
-					} /*if (prevState.posts.length < 2)*/ /*else if (
-						prevState.posts.length < 2
-					) {
-						updatedPosts = prevState.posts.concat(post);
-					}*/
 					return {
-						posts: updatedPosts,
 						isEditing: false,
 						editPost: null,
 						editLoading: false,
