@@ -140,6 +140,11 @@ class Feed extends Component {
 				  _id
 				  title
 				  content
+				  imageUrl
+				  creator {
+					name
+				  }
+				  createdAt
 				}
 			  }
 
@@ -158,6 +163,16 @@ class Feed extends Component {
 				return res.json();
 			})
 			.then(resData => {
+				if (resData.errors && resData.errors[0].status === 422) {
+					throw new Error(
+						"Validation failed. Make sure the email address isn't used yet!"
+					);
+				}
+
+				if (resData.errors) {
+					throw new Error('User Creation Failed!');
+				}
+
 				console.log(resData);
 				const post = {
 					_id: resData.post._id,
