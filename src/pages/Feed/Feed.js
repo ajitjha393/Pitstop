@@ -58,7 +58,7 @@ class Feed extends Component {
 		const graphqlQuery = {
 			query: `
 				{
-					posts {
+					posts(page: ${page}) {
 						posts {
 							_id
 							title
@@ -99,7 +99,7 @@ class Feed extends Component {
 							imagePath: post.imageUrl,
 						};
 					}),
-					totalPosts: resData.data.posts.totalItems,
+					totalPosts: resData.data.posts.totalPosts,
 					postsLoading: false,
 				});
 			})
