@@ -63,6 +63,7 @@ class Feed extends Component {
 							_id
 							title
 							content
+							imageUrl
 							creator {
 							name
 							}
@@ -167,7 +168,7 @@ class Feed extends Component {
 			headers: {
 				Authorization: 'Bearer ' + this.props.token,
 			},
-			body: formData
+			body: formData,
 		})
 			.then(res => res.json())
 			.then(resData => {
