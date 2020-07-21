@@ -9,6 +9,10 @@ import Loader from '../../components/Loader/Loader';
 import ErrorHandler from '../../components/ErrorHandler/ErrorHandler';
 import './Feed.css';
 
+const graphqlApiEndpoint = 'https://pitstop-graphql-api.herokuapp.com/graphql';
+const addImageApiEndpoint =
+	'https://pitstop-graphql-api.herokuapp.com/add-image';
+
 class Feed extends Component {
 	state = {
 		isEditing: false,
@@ -33,7 +37,7 @@ class Feed extends Component {
 			`,
 		};
 
-		fetch('http://localhost:8080/graphql', {
+		fetch(graphqlApiEndpoint, {
 			method: 'POST',
 			headers: {
 				Authorization: 'Bearer ' + this.props.token,
@@ -90,7 +94,7 @@ class Feed extends Component {
 			`,
 		};
 
-		fetch('http://localhost:8080/graphql', {
+		fetch(graphqlApiEndpoint, {
 			method: 'POST',
 			headers: {
 				Authorization: 'Bearer ' + this.props.token,
@@ -135,7 +139,7 @@ class Feed extends Component {
 			`,
 		};
 
-		fetch('http://localhost:8080/graphql', {
+		fetch(graphqlApiEndpoint, {
 			method: 'POST',
 			headers: {
 				Authorization: 'Bearer ' + this.props.token,
@@ -186,7 +190,7 @@ class Feed extends Component {
 			formData.append('oldPath', this.state.editPost.imagePath);
 		}
 
-		fetch('http://localhost:8080/add-image', {
+		fetch(addImageApiEndpoint, {
 			method: 'PUT',
 			headers: {
 				Authorization: 'Bearer ' + this.props.token,
@@ -237,7 +241,7 @@ class Feed extends Component {
 					};
 				}
 
-				return fetch('http://localhost:8080/graphql', {
+				return fetch(graphqlApiEndpoint, {
 					method: 'POST',
 					body: JSON.stringify(graphqlQuery),
 					headers: {
@@ -324,7 +328,7 @@ class Feed extends Component {
 			}`,
 		};
 
-		fetch('http://localhost:8080/graphql', {
+		fetch(graphqlApiEndpoint, {
 			method: 'POST',
 			headers: {
 				Authorization: 'Bearer ' + this.props.token,

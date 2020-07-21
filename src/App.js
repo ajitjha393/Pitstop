@@ -13,6 +13,8 @@ import LoginPage from './pages/Auth/Login';
 import SignupPage from './pages/Auth/Signup';
 import './App.css';
 
+const graphqlApiEndpoint = 'https://pitstop-graphql-api.herokuapp.com/graphql';
+
 class App extends Component {
 	state = {
 		showBackdrop: false,
@@ -72,7 +74,7 @@ class App extends Component {
 		};
 
 		this.setState({ authLoading: true });
-		fetch('http://localhost:8080/graphql', {
+		fetch(graphqlApiEndpoint, {
 			method: 'POST',
 			headers: {
 				'Content-Type': 'application/json',
@@ -133,7 +135,7 @@ class App extends Component {
 		`,
 		};
 
-		fetch('http://localhost:8080/graphql', {
+		fetch(graphqlApiEndpoint, {
 			method: 'POST',
 			headers: {
 				'Content-Type': 'application/json',
